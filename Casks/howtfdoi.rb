@@ -34,17 +34,9 @@ cask "howtfdoi" do
 
   binary "howtfdoi"
 
-  postflight do
-    # Remove macOS quarantine attribute since the binary is not notarized.
-    # Without this, Gatekeeper will block execution on first run.
-    system_command "/usr/bin/xattr",
-                   args: ["-d", "com.apple.quarantine", "#{staged_path}/howtfdoi"],
-                   sudo: false
-  end
-
-  zap trash: [
-    "~/.config/howtfdoi",
-    "~/.local/state/howtfdoi",
-  ]
+  caveats <<~EOS
+    howtfdoi is not notarized. If macOS Gatekeeper blocks it on first run, remove the quarantine attribute:
+      xattr -d com.apple.quarantine $(which howtfdoi)
+  EOS
 
 end
