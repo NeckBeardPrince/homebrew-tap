@@ -1,0 +1,17 @@
+# RuboCop configuration for Homebrew tap
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.1
+  Include:
+    - "Casks/**/*.rb"
+    - "Formula/**/*.rb"
+  Exclude:
+    - "vendor/**/*"
+
+# Homebrew cask files use a DSL that looks like method calls without parens
+Style/MethodCallWithoutArgsParentheses:
+  Enabled: false
+
+# GoReleaser updates these files; allow long lines in generated content
+Layout/LineLength:
+  Max: 120
